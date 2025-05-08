@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.entry-page-color {
+  @apply bg-gradient-to-r from-pink-500 to-violet-500;
+}
