@@ -1,5 +1,5 @@
 const express = require('express');
-
+const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors'); 
 
@@ -22,6 +22,12 @@ const logger = (req,res, next) => {
 app.use(logger);
 
 
+try {
+    mongoose.connect("mongodb+srv://alerksanderradecki:Dobromir1@mathmentor-ai.dthutad.mongodb.net/?retryWrites=true&w=majority&appName=MathMentor-AI")
+    .then(() => console.log('Polaczono z MongoDB'));
+} catch (error) {
+    console.error('Nie mozna polaczyc z mongodb', error);
+}
 
 
 
@@ -31,4 +37,7 @@ app.listen(PORT, () => {
   console.log(`Serwer działa na http://localhost:${PORT}`);
 });
 
-
+// Test endpoint
+app.get('/api/test', (req, res) => {
+    res.json({ message: 'Connection successful!' });
+});

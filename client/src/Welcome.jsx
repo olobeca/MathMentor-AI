@@ -1,6 +1,8 @@
 import './App.css';
 import React from "react";
+import { useEffect } from 'react';
 function Welcome() {
+
   return ( 
     <div className=" entry-page-color h-screen justify-center  items-center flex"> 
     
