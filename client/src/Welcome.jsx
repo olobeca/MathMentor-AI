@@ -16,18 +16,13 @@ function Welcome() {
       </div> 
       <div className="mb-5 flex items-center justify-between gap-4">
         <a href="http://localhost:3000/ForgetPassword" className="text-gray-500">forget password</a> 
-        <button type="submit" className="w-full entry-page-color rounded-md text-white px-4 py-2">login</button>
+        <button type="submit" className="w-full entry-page-color rounded-md text-white px-4 py-2 hover:bg-gradient-to-r hover:from-pink-600 hover:to-violet-600">login</button>
       </div> 
       <div className="mb-5 flex items-center justify-between gap-4 ">
         <a className="text-gray-500">Don't have an account?</a>
-        <button className='entry-page-color rounded-md text-white  py-2 px-20'>Sign Up</button> 
-
-
+        <button className='entry-page-color hover:bg-gradient-to-r hover:from-pink-600 hover:to-violet-600 focus:outline-2 focus:outline-offset-2 focus:outline-violet-900 rounded-md text-white  py-2 px-20'>Sign Up</button> 
       </div>
-
     </div>
-
-
     </div>
   );
 }
