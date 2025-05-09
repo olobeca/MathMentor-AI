@@ -1,7 +1,28 @@
 import './App.css';
 import React from "react";
 import { useEffect } from 'react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from '../context/UserContext';
+
+
 function Welcome() {
+
+  const { user: contextUser, setUser: setContextUser } = useUser()  
+
+   const [user, setUser] = useState({
+      email: "",
+      password: ""  
+    });
+
+  function handleEmailChange(e){
+    setUser({...user, email: e.target.value}); 
+  }
+
+  function handlePasswordChange(e){
+    setUser({...user, password: e.target.value}); 
+  }
+
 
   return ( 
     <div className=" entry-page-color h-screen justify-center  items-center flex"> 
@@ -9,11 +30,11 @@ function Welcome() {
     <div className=" flex-col  justify-center items-center border-none py-8 px-8 rounded-lg shadow-lg  bg-white">
       <h1 className="entry-page-color bg-clip-text text-5xl font-extrabold text-transparent text-center mb-6">Welcome</h1>
       <div className="w-full mb-5 flex items-center justify-between gap-4">
-        <input placeholder='example@email.com'></input>
+        <input onChange={handleEmailChange} placeholder='example@email.com'></input>
         <label className=" font-bold  ">Enter your email</label>
       </div> 
       <div className="flex items-center mb-5 justify-between gap-4">
-        <input placeholder="password"></input>
+        <input onChange={handlePasswordChange} placeholder="password"></input>
         <label className=" font-bold">Enter your password</label>
       </div> 
       <div className="mb-5 flex items-center justify-between gap-4">

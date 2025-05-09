@@ -1,14 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import {useState} from "react";
-import Welcome from "./Welcome";
-import Home from "./Home";
+import { Routes, Route } from "react-router-dom";
+import { UserProvider } from "./context/UserContext";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
 function App() {
   return ( 
-    <Welcome />
+    <UserProvider> 
+        <div>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/welcome" element={<Welcome />} />
+            </Routes>
+        </div>
+        </UserProvider>
 
   );
 }
