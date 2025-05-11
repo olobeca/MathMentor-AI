@@ -4,7 +4,7 @@ import {useState} from "react";
 import { Routes, Route } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Welcome from "./pages/Welcome";
 
 function App() {
   return ( 
@@ -12,7 +12,6 @@ function App() {
         <div>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
                 <Route path="/welcome" element={<Welcome />} />
             </Routes>
         </div>

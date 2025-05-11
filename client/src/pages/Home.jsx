@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {useState} from "react"; 
-import './App.css';
+import '../App.css';
 
 
 function Home() {
