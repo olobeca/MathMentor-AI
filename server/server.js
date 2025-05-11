@@ -50,7 +50,7 @@ app.post('/api/user', async (req, res) => {
     console.log('Got data from request:', req.body); 
 
     try {
-        const { email, password } = req.body;
+        const { email:email, password:password } = req.body;
         const newUser = new user({ email, password });
         await newUser.save();
         res.status(201).json({ message: 'User created successfully!' });
