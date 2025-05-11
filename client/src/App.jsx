@@ -6,6 +6,7 @@ import { UserProvider } from "./context/UserContext";
 import Home from "./pages/Home";
 import Welcome from "./pages/Welcome";
 import ForgetPassword from "./pages/ForgetPassword";
+import MadeAccount from "./pages/MadeAccount";
 
 function App() {
   return ( 
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/welcome" element={<Welcome />} />
                 <Route path="/ForgetPassword" element={<ForgetPassword />} />
+                <Route path="/MadeAccount" element={<MadeAccount />} />
             </Routes>
         </div>
         </UserProvider>
