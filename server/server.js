@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors'); 
+const user = require('./models/user');
 
 
 const corsOptions = {
@@ -40,4 +41,22 @@ app.listen(PORT, () => {
 // Test endpoint
 app.get('/api/test', (req, res) => {
     res.json({ message: 'Connection successful!' });
+});
+
+
+// endpoint for adding a user 
+
+app.post('/api/user', async (req, res) => {
+    console.log('Got data from request:', req.body); 
+
+    try {
+        const { email, password } = req.body;
+        const newUser = new user({ email, password });
+        await newUser.save();
+        res.status(201).json({ message: 'User created successfully!' });
+    } 
+    catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({ message: 'Error creating user' });
+    }
 });
