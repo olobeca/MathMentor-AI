@@ -5,6 +5,9 @@ const cors = require('cors');
 const user = require('./models/user');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+dotenv.config(); 
+const { sendConfirmationEmail, sendResetPasswordEmail } = require('./services/emailService');
+
 
 
 
@@ -60,47 +63,6 @@ app.get('/api/test', (req, res) => {
 });
 
 
-
-
-
-async function sendConfirmationEmail(toEmail) {
-            try {
-                const info = await transporter.sendMail({
-                from: '"Math Mentor" <alerksanderradecki@gmail.com>',
-                to: toEmail,
-                subject: 'Potwierdzenie założenia konta',
-                html: `
-                    <h2>Cześć!</h2>
-                    <p>Dziękujemy za rejestrację w naszej aplikacji.</p>
-                `
-                });
-
-                console.log('E-mail wysłany:', info.messageId);
-            } catch (err) {
-                console.error('Błąd przy wysyłaniu maila:', err);
-            }
-            }
-
-//function for reseting password email 
-async function sendResetPasswordEmail(toEmail) {
-    try {
-        const info = await transporter.sendMail({
-        from: '"Math Mentor" <alerksanderradecki@gmail.com>',
-                to: toEmail,
-                subject: 'Potwierdzenie założenia konta',
-                html: `
-                    <h2>Cześć!</h2>
-                    <p>Twoje nowe haslo - .</p>
-                `
-        
-        });
-
-        console.log('E-mail wysłany:', info.messageId); 
-    } catch (err) {
-        console.error('Błąd przy wysyłaniu maila:', err);
-    }
-}
-
 // endpoint for adding a user 
 
 app.post('/api/user', async (req, res) => {
@@ -126,7 +88,7 @@ app.post('/password/reset', async (req, res) => {
     console.log('Got data from request', req.body);  
     try {
         const { email:email } = req.body; 
-        await sendResetPasswordEmail(email);
+        await sendResetPasswordEmail(email,'nowe-haslo');
     
     } 
     catch (error) {
