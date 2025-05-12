@@ -5,6 +5,7 @@ const cors = require('cors');
 const user = require('./models/user');
 
 
+
 const corsOptions = {
     origin: 'http://localhost:3000',
     credentials: true,
