@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 dotenv.config(); 
 const { sendConfirmationEmail, sendResetPasswordEmail } = require('./services/emailService');
+const {logger} = require('./utils/logger');
 
 
 
@@ -33,11 +34,7 @@ app.use(cors(corsOptions));
 app.options('/api/*', cors(corsOptions));
 app.use(express.json()); 
 
-const logger = (req,res, next) => {
-    const czas = new Date().toISOString();
-    console.log(`${req.method} ${req.url} ${czas}`);
-    next();
-};
+
 
 app.use(logger);
 
@@ -88,7 +85,7 @@ app.post('/password/reset', async (req, res) => {
     console.log('Got data from request', req.body);  
     try {
         const { email:email } = req.body; 
-        await sendResetPasswordEmail(email,'nowe-haslo');
+        await sendResetPasswordEmail(email,'nowe-haslo'); 
     
     } 
     catch (error) {
