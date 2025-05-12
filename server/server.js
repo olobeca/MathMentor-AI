@@ -77,6 +77,25 @@ async function sendConfirmationEmail(toEmail) {
             }
             }
 
+//function for reseting password email 
+async function sendResetPasswordEmail(toEmail) {
+    try {
+        const info = await transporter.sendMail({
+        from: '"Math Mentor" <alerksanderradecki@gmail.com>',
+                to: toEmail,
+                subject: 'Potwierdzenie założenia konta',
+                html: `
+                    <h2>Cześć!</h2>
+                    <p>Twoje nowe haslo - .</p>
+                `
+        
+        });
+
+        console.log('E-mail wysłany:', info.messageId); 
+    } catch (err) {
+        console.error('Błąd przy wysyłaniu maila:', err);
+    }
+}
 
 // endpoint for adding a user 
 
@@ -95,4 +114,19 @@ app.post('/api/user', async (req, res) => {
         console.error('Error creating user:', error);
         res.status(500).json({ message: 'Error creating user' });
     }
+}); 
+
+app.post('/password/reset', async (req, res) => {
+    console.log('Got data from request', req.body);  
+    try {
+        const { email:email } = req.body; 
+        await sendResetPasswordEmail(email);
+    
+    } 
+    catch (error) {
+        console.error('Error reseting user email:', error);
+        res.status(500).json({ message: 'Error resseting passwrd' });
+    }
+
+
 });
