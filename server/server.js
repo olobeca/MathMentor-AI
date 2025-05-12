@@ -4,12 +4,16 @@ const app = express();
 const cors = require('cors'); 
 const user = require('./models/user');
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+
+
+
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'alerksanderradecki@gmail.com',       
-    pass: 'mgsk sqco vsxz emdz'     
+    user: process.env.EMAIL_USER,       
+    pass: process.env.EMAIL_PASS,   
   },
     tls: {
         rejectUnauthorized: false
@@ -36,7 +40,7 @@ app.use(logger);
 
 
 try {
-    mongoose.connect("mongodb+srv://alerksanderradecki:Dobromir1@mathmentor-ai.dthutad.mongodb.net/?retryWrites=true&w=majority&appName=MathMentor-AI")
+    mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Polaczono z MongoDB'));
 } catch (error) {
     console.error('Nie mozna polaczyc z mongodb', error);
@@ -116,6 +120,8 @@ app.post('/api/user', async (req, res) => {
     }
 }); 
 
+
+// endpoint for reseting password
 app.post('/password/reset', async (req, res) => {
     console.log('Got data from request', req.body);  
     try {
@@ -127,6 +133,5 @@ app.post('/password/reset', async (req, res) => {
         console.error('Error reseting user email:', error);
         res.status(500).json({ message: 'Error resseting passwrd' });
     }
-
 
 });
