@@ -3,7 +3,18 @@ const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors'); 
 const user = require('./models/user');
+const nodemailer = require('nodemailer');
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'alerksanderradecki@gmail.com',       
+    pass: 'mgsk sqco vsxz emdz'     
+  },
+    tls: {
+        rejectUnauthorized: false
+    }
+});
 
 
 const corsOptions = {
@@ -45,6 +56,28 @@ app.get('/api/test', (req, res) => {
 });
 
 
+
+
+
+async function sendConfirmationEmail(toEmail) {
+            try {
+                const info = await transporter.sendMail({
+                from: '"Math Mentor" <alerksanderradecki@gmail.com>',
+                to: toEmail,
+                subject: 'Potwierdzenie założenia konta',
+                html: `
+                    <h2>Cześć!</h2>
+                    <p>Dziękujemy za rejestrację w naszej aplikacji.</p>
+                `
+                });
+
+                console.log('E-mail wysłany:', info.messageId);
+            } catch (err) {
+                console.error('Błąd przy wysyłaniu maila:', err);
+            }
+            }
+
+
 // endpoint for adding a user 
 
 app.post('/api/user', async (req, res) => {
@@ -55,6 +88,8 @@ app.post('/api/user', async (req, res) => {
         const newUser = new user({ email, password });
         await newUser.save();
         res.status(201).json({ message: 'User created successfully!' });
+        await sendConfirmationEmail(email);
+        
     } 
     catch (error) {
         console.error('Error creating user:', error);
