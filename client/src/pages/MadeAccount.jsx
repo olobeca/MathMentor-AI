@@ -50,11 +50,11 @@ function MadeAccount() {
         <div className="welcome-pages-frame-div"> 
             <h1 className="welcome-h1">Made an Account</h1>
             <div className="welcome-button-div"> 
-                <input onChange={handleEmailChange} placeholder='example@email.com'></input>
+                <input value={user.email} onChange={handleEmailChange} placeholder='example@email.com'></input>
                 <label className=" font-bold  ">Enter your email</label>
             </div>
             <div className="welcome-button-div"> 
-                <input onChange={handlePasswordChange} placeholder='password'></input>
+                <input value={user.password} onChange={handlePasswordChange} placeholder='password'></input>
                 <label className=" font-bold  ">Enter your password</label>
             </div>
             <div className="welcome-button-div"> 
