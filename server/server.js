@@ -11,8 +11,6 @@ const {logger} = require('./utils/logger');
 const { corsOptions } = require('./config/cors');
 
 
-
-
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -28,9 +26,6 @@ const transporter = nodemailer.createTransport({
 app.use(cors(corsOptions));
 app.options('/api/*', cors(corsOptions));
 app.use(express.json()); 
-
-
-
 app.use(logger);
 
 
@@ -40,7 +35,6 @@ try {
 } catch (error) {
     console.error('Nie mozna polaczyc z mongodb', error);
 }
-
 
 
 // Start serwera
