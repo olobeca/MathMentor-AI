@@ -22,7 +22,7 @@ function MadeAccount() {
 
     function handleAddUser() {
         console.log("date sent to server", user);
-        fetch("http://localhost:5001/api/uzytkownik", {
+        fetch("http://localhost:5001/api/user", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
