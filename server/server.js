@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 dotenv.config(); 
 const { sendConfirmationEmail, sendResetPasswordEmail } = require('./services/emailService');
 const {logger} = require('./utils/logger');
-
+const { corsOptions } = require('./config/cors');
 
 
 
@@ -24,11 +24,6 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-
-const corsOptions = {
-    origin: 'http://localhost:3000',
-    credentials: true,
-  };
 
 app.use(cors(corsOptions));
 app.options('/api/*', cors(corsOptions));
