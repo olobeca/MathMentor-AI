@@ -17,7 +17,7 @@ function ForgetPassword() {
 
     function handlePasswordReset() {
         console.log("date sent to server", email);
-        fetch("http://localhost:5001/users/reset-password", {
+        fetch("http://localhost:5001/api/users/reset-password", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

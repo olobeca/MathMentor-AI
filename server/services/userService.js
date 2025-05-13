@@ -7,8 +7,22 @@ async function createUser(email, password) {
   await sendConfirmationEmail(email);
 }
 
+
+function generatePassword() {
+    var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+}
+
+
 async function resetUserPassword(email) {
-  const newPassword = 'abc123'; // Tutaj możesz wygenerować nowe hasło
+  
+  const newPassword = generatePassword();
+
   await sendResetPasswordEmail(email, newPassword);
 }
 
