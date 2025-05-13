@@ -24,6 +24,7 @@ async function resetUserPassword(email) {
   const newPassword = generatePassword();
 
   await sendResetPasswordEmail(email, newPassword);
+  return newPassword;
 }
 
 module.exports = {

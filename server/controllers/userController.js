@@ -1,4 +1,6 @@
 const userService = require('../services/userService');
+const user = require('../models/user');
+const mongoose = require('mongoose');
 
 exports.registerUser = async (req, res) => {
   try {
@@ -14,7 +16,13 @@ exports.registerUser = async (req, res) => {
 exports.resetPassword = async (req, res) => {
   try {
     const { email } = req.body;
-    await userService.resetUserPassword(email);
+    const newPass = await userService.resetUserPassword(email);
+    const Editeduser = await user.findOne({email: email}); 
+    if (!Editeduser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    Editeduser.password = newPass;
+    await Editeduser.save();
     res.status(200).json({ message: 'Password reset email sent' });
   } catch (error) {
     console.error('Reset error:', error);
