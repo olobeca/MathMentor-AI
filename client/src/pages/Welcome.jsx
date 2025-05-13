@@ -73,11 +73,11 @@ function Welcome() {
         <a href="http://localhost:3000/MadeAccount" className="text-gray-500">Don't have an account?</a>
         <button className='entry-page-color hover:bg-gradient-to-r hover:from-pink-600 hover:to-violet-600 focus:outline-2 focus:outline-offset-2 focus:outline-violet-900 rounded-md text-white  py-2 px-20'>Sign Up</button> 
       </div> 
-      {!{isPasswordOK} && (
+      {!isPasswordOK && (
         <div className="welcome-button-div">
           <p className="text-red-500">Wrong Email or password</p>
         </div>
-      )}: 
+      )}
        
     </div>
     </div>
