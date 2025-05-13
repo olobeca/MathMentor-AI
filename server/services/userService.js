@@ -22,12 +22,22 @@ function generatePassword() {
 async function resetUserPassword(email) {
   
   const newPassword = generatePassword();
-
   await sendResetPasswordEmail(email, newPassword);
-  return newPassword;
+  const Editeduser = await User.findOne({email: email}); 
+  if (!Editeduser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+  Editeduser.password = newPassword;
+  await Editeduser.save();
+}  
+
+async function loginUser(email, password) {
+    const user = await User.findOne({ email: email, password: password }); 
+    return user;
 }
 
 module.exports = {
   createUser,
   resetUserPassword,
+  loginUser
 };

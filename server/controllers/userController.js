@@ -16,16 +16,26 @@ exports.registerUser = async (req, res) => {
 exports.resetPassword = async (req, res) => {
   try {
     const { email } = req.body;
-    const newPass = await userService.resetUserPassword(email);
-    const Editeduser = await user.findOne({email: email}); 
-    if (!Editeduser) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-    Editeduser.password = newPass;
-    await Editeduser.save();
+    await userService.resetUserPassword(email);
     res.status(200).json({ message: 'Password reset email sent' });
   } catch (error) {
     console.error('Reset error:', error);
     res.status(500).json({ message: 'Error reseting password' });
   }
-};
+}; 
+
+exports.loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const loggedUser = await userService.loginUser(email, password);
+        if (loggedUser) {
+            res.status(200).json({ message: 'Login successful' });
+        } else {
+            res.status(401).json({ message: 'Invalid email or password' });
+        } 
+    }
+    catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ message: 'Error logging in' });
+    }
+}
