@@ -69,8 +69,8 @@ function Welcome() {
         <a href="http://localhost:3000/ForgetPassword" className="text-gray-500">forget password</a> 
         <button onClick={handleLogin} type="submit" className="w-full entry-page-color rounded-md text-white px-4 py-2 hover:bg-gradient-to-r hover:from-pink-600 hover:to-violet-600">login</button>
       </div> 
-      <div className="welcome-button-div ">
-        <a href="http://localhost:3000/MadeAccount"><button className='entry-page-color hover:bg-gradient-to-r hover:from-pink-600 hover:to-violet-600 focus:outline-2 focus:outline-offset-2 focus:outline-violet-900 rounded-md text-white w-full  py-2 px-20'>Sign Up</button></a> 
+      <div className="welcome-button-div">
+        <a href="http://localhost:3000/MadeAccount"><button className='w-full entry-page-color hover:bg-gradient-to-r hover:from-pink-600 hover:to-violet-600 focus:outline-2 focus:outline-offset-2 focus:outline-violet-900 rounded-md text-white  py-2 px-20'>Sign Up</button></a> 
       </div> 
       {!isPasswordOK && (
         <div className="welcome-button-div">
