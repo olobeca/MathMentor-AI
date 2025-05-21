@@ -8,7 +8,7 @@ import { useUser } from '../context/UserContext';
 
 function Home() {
 
-    const user = useUser();
+    const {user}= useUser();
 
 
     return (

@@ -40,6 +40,9 @@ function Welcome() {
                 //debug
                 console.log (user.email);
                 console.log(user.password);
+                // addec to local storage
+                localStorage.setItem('user',JSON.stringify(user)); 
+
                 setContextUser(user);
                 window.location.href = "http://localhost:3000/Home"; 
             } else {
