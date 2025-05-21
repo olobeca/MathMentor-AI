@@ -37,8 +37,11 @@ function Welcome() {
             console.log("Success:", data); 
             if (data.message === 'Login successful') {
                 setisPasswordOK(true);
+                //debug
+                console.log (user.email);
+                console.log(user.password);
                 setContextUser(user);
-                window.location.href = "http://localhost:3000/"; 
+                window.location.href = "http://localhost:3000/Home"; 
             } else {
                 setisPasswordOK(false);
             }
