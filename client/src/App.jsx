@@ -7,6 +7,11 @@ import Home from "./pages/Home";
 import Welcome from "./pages/Welcome";
 import ForgetPassword from "./pages/ForgetPassword";
 import MadeAccount from "./pages/MadeAccount";
+import AdminPannel from "./pages/AdminPannel";
+import Premium from "./pages/Premium";
+import About from "./pages/About";
+import Account from "./pages/Account";
+
 
 function App() {
   return ( 
@@ -17,6 +22,10 @@ function App() {
                 <Route path="/" element={<Welcome />} />
                 <Route path="/ForgetPassword" element={<ForgetPassword />} />
                 <Route path="/MadeAccount" element={<MadeAccount />} />
+                <Route path="/AdminPannel" element={<AdminPannel />} />
+                <Route path="/Premium" element={<Premium />} />
+                <Route path="/About" element={<About />} />
+                <Route path="/Account" element={<Account />} />
             </Routes>
         </div>
         </UserProvider>

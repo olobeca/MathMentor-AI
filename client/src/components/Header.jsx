@@ -11,6 +11,7 @@ function Header() {
             <div className="container mx-auto px-4 flex justify-between items-center">
                 
                 <nav className="space-x-4">
+                    <Link className="header-link" to="/Home">Home</Link> 
                     <Link className="header-link" to="/Premium">Premium</Link> 
                     <Link className= "header-link" to="/">Login</Link> 
                 </nav>
