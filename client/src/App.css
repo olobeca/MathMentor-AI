@@ -25,3 +25,7 @@
 .welcome-button-div {
   @apply mb-5 flex items-center justify-between gap-4
 }
+
+.header-link { 
+  @apply text-white hover:text-black bg-clip-text text-3xl font-extrabold  text-center px-3 py-2 rounded transition-colors duration-300
+}

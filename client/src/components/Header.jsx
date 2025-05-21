@@ -1,23 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { UserProvider } from "../context/UserContext";
+import { useUser } from "../context/UserContext";
 
 function Header() {
 
-    const {user} = UserProvider();
-    
-    return (
-        <header class="sticky top-0  header-color text-black py-8 shadow-md">
-            <div className="container mx-auto px-4 flex justify-center items-center">
-                <h1 className="text-white text-4xl font-bold">Math Mentor AI</h1> 
-                {user.isAdmin ?   
-                    <div>
+    const {user} = useUser();
 
-                    </div> :    
-                    
-                    <div>
-                    
-                    </div>}
+    return (
+        <header class="sticky top-0  entry-page-color text-black py-2 shadow-md">
+            <div className="container mx-auto px-4 flex justify-between items-center">
+                
+                <nav className="space-x-4">
+                    <Link className="header-link" to="/Premium">Premium</Link> 
+                    <Link className= "header-link" to="/">Login</Link> 
+                </nav>
+                
+                <img src="/pictures/logo.jpg" alt="logo" className="w-1/6 h-1/6"/>
+
+                <nav className="space-x-4">
+                    <Link className="header-link" to="/Account">Account</Link> 
+                    {user.isAdmin ? <Link className= "header-link" to="/AdminPannel">Account</Link> : null}
+                    <Link className="header-link" to="/About">About</Link> 
+                </nav>
             </div>
 
         </header>
