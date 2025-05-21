@@ -10,6 +10,7 @@ import Header from "../components/Header";
 function Home() {
 
     const {user}= useUser();
+    console.log("user in home page", user);
 
 
     return ( 

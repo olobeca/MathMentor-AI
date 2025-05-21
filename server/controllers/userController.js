@@ -29,7 +29,13 @@ exports.loginUser = async (req, res) => {
         const { email, password } = req.body;
         const loggedUser = await userService.loginUser(email, password);
         if (loggedUser) {
-            res.status(200).json({ message: 'Login successful' });
+            res.status(200).json({ message: 'Login successful',
+                                  user: {
+                                    email: loggedUser.email,
+                                    password: loggedUser.password,
+                                    isAdmin: loggedUser.isAdmin,
+                                  }}
+            );
         } else {
             res.status(200).json({ message: 'Invalid email or password' });
         } 

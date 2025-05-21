@@ -11,7 +11,8 @@ function Welcome() {
 
    const [user, setUser] = useState({
       email: "",
-      password: ""  
+      password: "",
+      isAdmin: false, 
     });
 
   function handleEmailChange(e){
@@ -41,9 +42,9 @@ function Welcome() {
                 console.log (user.email);
                 console.log(user.password);
                 // addec to local storage
-                localStorage.setItem('user',JSON.stringify(user)); 
+                localStorage.setItem('user',JSON.stringify(data.user)); 
 
-                setContextUser(user);
+                setContextUser(data.user);
                 window.location.href = "http://localhost:3000/Home"; 
             } else {
                 setisPasswordOK(false);
@@ -55,6 +56,7 @@ function Welcome() {
         setUser({
             email: "",
             password: "",
+            isAdmin: false,
         }); 
         
   }
