@@ -18,6 +18,7 @@
     "express": "^4.21.2",
     "mongodb": "^6.16.0",
     "mongoose": "^8.14.2",
+    "multer": "^2.0.0",
     "nodemailer": "^7.0.3",
     "router": "^2.2.0"
   },
