@@ -6,9 +6,10 @@ exports.generatePDF = async (req, res) => {
     try { 
         if(!req.file)
           {  return res.status(400).json({ message: 'No file uploaded' });}
+        
 
         const pdfPath = path.join(__dirname, '..', 'uploads', req.file.filename);
-
+        console.log('Wywołuję skrypt Python z plikiem:', pdfPath);
         const pythonProcess = spawn('python', [
             path.join(__dirname, '..', 'PdfTextConverter.py'),
             pdfPath
@@ -35,7 +36,6 @@ exports.generatePDF = async (req, res) => {
             res.status(200).json({ message: 'PDF processed successfully!', data: output });
         });
 
-        console.log(output);
 
     } catch(error) {
         console.error('Error generating PDF:', error);
