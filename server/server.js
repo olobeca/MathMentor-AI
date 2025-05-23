@@ -24,7 +24,10 @@ try {
 
 
 const userRoutes = require('./routes/userRoutes');
-app.use('/api/users', userRoutes);
+app.use('/api/users', userRoutes); 
+
+const appRoutes = require('./routes/appRoutes');
+app.use('/api/app', appRoutes);
 
 
 // Start serwera
