@@ -1,6 +1,8 @@
 const path = require('path');
 const { spawn } = require('child_process');
 
+
+
 const express = require('express'); 
 exports.generatePDF = async (req, res) => {
     try { 
@@ -13,7 +15,7 @@ exports.generatePDF = async (req, res) => {
         const pythonProcess = spawn('python', [
             path.join(__dirname, '..', 'PdfTextConverter.py'),
             pdfPath
-        ]);
+        ],{env: { PYTHONIOENCODING: 'utf-8'}});
 
         let output = '';
         let errorOutput = '';
@@ -28,13 +30,42 @@ exports.generatePDF = async (req, res) => {
 
         pythonProcess.on('close', (code) => {
             if (code !== 0) {
+                console.error(`python error output: ${errorOutput}`);
                 console.error(`Python script exited with code ${code}`);
                 return res.status(500).json({ message: 'Error processing PDF' });
             }
 
             console.log('Python script output:', output);
-            res.status(200).json({ message: 'PDF processed successfully!', data: output });
+
+            const pythonProcess2 = spawn('python', [
+            path.join(__dirname, '..', 'TextToChunk.py'),
+            output
+            ], { env: {...process.env, PYTHONIOENCODING: 'utf-8'}});
+
+            let output2 = '';
+            let errorOutput2 = '';
+            
+            pythonProcess2.stdout.on('data', (data) => {
+                output2 += data.toString();
+            });
+
+            pythonProcess2.stderr.on('data', (data) => {
+                errorOutput2 += data.toString();
+            }); 
+
+            pythonProcess2.on('close', (code) => {
+                if (code !== 0) {
+                    console.error(`Python script exited with code ${code}`);
+                    console.error(`python error output: ${errorOutput2}`);
+                    return res.status(500).json({ message: 'Error processing PDF' });
+                }
+
+                console.log('Python script output:', output2);
+                res.status(200).json({ message: 'PDF processed successfully!', data: output2 });
+            });
         });
+
+        
 
 
     } catch(error) {

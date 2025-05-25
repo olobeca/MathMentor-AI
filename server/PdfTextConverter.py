@@ -2,12 +2,17 @@ import pdfplumber
 import sys
 
 
+
 print("Start Python script", file=sys.stderr)
 if len(sys.argv) <2:
     print("no python file provided")
     sys.exit(1)
 
-pdf_file = sys.argv[1]
+pdf_file = sys.argv[1] 
+
+print("Plik istnieje?", os.path.exists(pdf_file), file=sys.stderr)
+print("Pełna ścieżka:", os.path.abspath(pdf_file), file=sys.stderr)
+
 print(f"Processing file: {pdf_file}", file=sys.stderr)
 
 try:

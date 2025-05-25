@@ -20,6 +20,7 @@
     "mongoose": "^8.14.2",
     "multer": "^2.0.0",
     "nodemailer": "^7.0.3",
+    "pdfplumber": "^0.0.1-security",
     "router": "^2.2.0"
   },
   "devDependencies": {
