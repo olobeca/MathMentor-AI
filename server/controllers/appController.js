@@ -1,5 +1,6 @@
 const path = require('path');
 const { spawn } = require('child_process');
+const embedingsService = require('../services/embedingsService');
 
 
 
@@ -64,7 +65,21 @@ exports.generatePDF = async (req, res) => {
                 console.log('debug deubufwejffeuifhweiufghWEUFHGLJSDFHLAsduHFGioweusgyfew8iyufgbeilufgdesfcsedbifb')
                 output2.split('===').forEach((chunk)=> {
                     if(chunk.trim()) {
-                        console.log('Chunk:', chunk);
+                        ///console.log('Processing chunk:', chunk);
+                     try{
+                       chunk_actual = embedingsService.generateEmbeddings(chunk)
+                        .then(() => {
+                            console.log('Chunk processed successfully');
+                            console.log('embeding z chunku:', chunk_actual);
+                        })
+                        .catch((err) => {
+                            console.error('Error processing chunk:', err);
+                        });
+                     } catch (error) {
+                        console.error('Error generating embeddings:', error);
+                     } 
+
+
                     }
                     })
                 res.status(200).json({ message: 'PDF processed successfully!', data: output2 });
