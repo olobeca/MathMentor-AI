@@ -1,5 +1,10 @@
-import pdfplumber
 import sys
+sys.path.append(r'C:\Users\xandi\AppData\Roaming\Python\Python313\site-packages')
+print(">>> PYTHON EXECUTABLE:", sys.executable, file=sys.stderr)
+print(">>> PATHS:", sys.path, file=sys.stderr)
+import os
+
+import pdfplumber
 
 
 
