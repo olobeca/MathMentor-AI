@@ -9,7 +9,7 @@ async function generateEmbeddings(text) {
     });
 
     console.log(embedding)
-    return embedding.data.embedding;
+    return embedding.data[0].embedding;
 } 
 
 module.exports = {

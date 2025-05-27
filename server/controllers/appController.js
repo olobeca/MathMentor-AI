@@ -54,7 +54,7 @@ exports.generatePDF = async (req, res) => {
                 errorOutput2 += data.toString();
             }); 
 
-            pythonProcess2.on('close', (code) => {
+            pythonProcess2.on('close', async (code) => {
                 if (code !== 0) {
                     console.error(`Python script exited with code ${code}`);
                     console.error(`python error output: ${errorOutput2}`);
@@ -63,30 +63,29 @@ exports.generatePDF = async (req, res) => {
 
                 //console.log('Python script output:', output2);
                 console.log('debug deubufwejffeuifhweiufghWEUFHGLJSDFHLAsduHFGioweusgyfew8iyufgbeilufgdesfcsedbifb')
-                output2.split('===').forEach((chunk)=> {
-                    if(chunk.trim()) {
-                        ///console.log('Processing chunk:', chunk);
-                     try{
-                       chunk_actual = embedingsService.generateEmbeddings(chunk)
-                        .then(() => {
-                            console.log('Chunk processed successfully');
-                            console.log('embeding z chunku:', chunk_actual);
-                        })
-                        .catch((err) => {
-                            console.error('Error processing chunk:', err);
-                        });
+                const embeddings = [];
+                chunks = output2.split('===').filter(chunk=> chunk.trim()); 
+                for (const chunk of chunks) {
+                    try{
+                        const embedding = await embedingsService.generateEmbeddings(chunk)
+                        console.log('chunk processes succesfully')
+                        console.log('Embedding z chunku:', embedding);
+                        embeddings.push(embedding);
                      } catch (error) {
                         console.error('Error generating embeddings:', error);
                      } 
-
-
+                
+                }
+                for(const embed of embeddings) {
+                    console.log('teraz wypisuje embeddings');
+                    console.log(embed);
                     }
-                    })
                 res.status(200).json({ message: 'PDF processed successfully!', data: output2 });
                 
             });
             
         });
+
 
 
     } catch(error) {
