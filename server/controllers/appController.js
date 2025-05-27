@@ -35,7 +35,7 @@ exports.generatePDF = async (req, res) => {
                 return res.status(500).json({ message: 'Error processing PDF' });
             }
 
-            console.log('Python script output:', output);
+            //console.log('Python script output:', output);
 
             const pythonProcess2 = spawn('python', [
             path.join(__dirname, '..', 'TextToChunk.py'),
@@ -60,12 +60,18 @@ exports.generatePDF = async (req, res) => {
                     return res.status(500).json({ message: 'Error processing PDF' });
                 }
 
-                console.log('Python script output:', output2);
+                //console.log('Python script output:', output2);
+                console.log('debug deubufwejffeuifhweiufghWEUFHGLJSDFHLAsduHFGioweusgyfew8iyufgbeilufgdesfcsedbifb')
+                output2.split('===').forEach((chunk)=> {
+                    if(chunk.trim()) {
+                        console.log('Chunk:', chunk);
+                    }
+                    })
                 res.status(200).json({ message: 'PDF processed successfully!', data: output2 });
+                
             });
+            
         });
-
-        
 
 
     } catch(error) {

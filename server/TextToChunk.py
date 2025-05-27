@@ -13,8 +13,8 @@ try:
     state_of_the_union = pdf_file
     text_splitter = RecursiveCharacterTextSplitter(
     # Set a really small chunk size, just to show.
-    chunk_size=100,
-    chunk_overlap=20,
+    chunk_size=1000,
+    chunk_overlap=100,
     length_function=len,
     is_separator_regex=False,
     )
@@ -26,3 +26,4 @@ except Exception as e:
 
 for i in texts:
     print(i)
+    print("===")
