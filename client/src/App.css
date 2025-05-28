@@ -15,7 +15,7 @@
 }
 
 .welcome-pages-frame-div {
-  @apply flex-col  justify-center items-center border-none py-8 px-8 rounded-lg shadow-lg  bg-white
+  @apply flex gap-y-4 flex-col  justify-center items-center border-none py-8 px-8 rounded-lg shadow-lg  bg-white
 }
 
 .welcome-h1 {
@@ -28,4 +28,8 @@
 
 .header-link { 
   @apply text-white hover:text-white bg-clip-text text-3xl hover:text-4xl font-extrabold  text-center px-3 py-2 rounded transition-colors transition-all duration-200 delay-100
+} 
+
+.chatbot-message {
+  @apply bg-gray-100 p-4 rounded-lg shadow-md mb-4 w-[50%] self-start font-bold text-gray-800;
 }
