@@ -71,15 +71,12 @@ exports.generatePDF = async (req, res) => {
                         console.log('chunk processes succesfully')
                         console.log('Embedding z chunku:', embedding);
                         embeddings.push(embedding);
+                        await embedingsService.saveChunk(chunk, embedding, req.file.filename);
                      } catch (error) {
                         console.error('Error generating embeddings:', error);
                      } 
                 
                 }
-                for(const embed of embeddings) {
-                    console.log('teraz wypisuje embeddings');
-                    console.log(embed);
-                    }
                 res.status(200).json({ message: 'PDF processed successfully!', data: output2 });
                 
             });
