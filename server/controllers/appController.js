@@ -90,3 +90,18 @@ exports.generatePDF = async (req, res) => {
         res.status(500).json({ message: 'Error generating PDF' });
     }
 }
+
+exports.chatbotMessage = async (req, res) => {
+    try {
+        const { message } = req.body;
+        console.log('Received message:', message);
+        
+
+        
+        console.log('Chatbot response:', response);
+        res.status(200).json({ message: response });
+    } catch (error) {
+        console.error('Error in chatbotMessage:', error);
+        res.status(500).json({ message: 'Error processing chatbot message' });
+    }
+}

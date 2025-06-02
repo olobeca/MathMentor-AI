@@ -25,13 +25,29 @@ function Home() {
         } 
     
 
-   function chatbotMessageSend() {
+   const chatbotMessageSend = async (e) => {
         console.log("test test tees")
         setMessages(e => [...e, { text: message.text, from: "user" }]);
+        const wiadomosac = message.text;
+        console.log("wiadomosac", wiadomosac);
         setMessage({ text: "" });
-
-
-   }
+        try {
+            const response = fetch("http://localhost:5001/api/app/chatbotMessage", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message: wiadomosac }),
+            })
+            const data = await response.json();
+        }
+        catch (error) {
+                console.error("Error:", error);
+            }
+        
+    }     
+        
+   
    
 
 
@@ -65,6 +81,6 @@ function Home() {
             </div>
         </div>
     )
-}
 
+}
 export default Home;
