@@ -1,8 +1,7 @@
 const path = require('path');
 const { spawn } = require('child_process');
 const embedingsService = require('../services/embedingsService');
-
-
+const chatbotService = require('../services/chatbotService');
 
 const express = require('express'); 
 exports.generatePDF = async (req, res) => {
@@ -95,9 +94,10 @@ exports.chatbotMessage = async (req, res) => {
     try {
         const { message } = req.body;
         console.log('Received message:', message);
-        
-
-        
+        if (!message || typeof message !== 'string') {
+            return res.status(400).json({ message: 'Invalid message format' });
+        }
+        const response = await chatbotService.generateResponse(message);
         console.log('Chatbot response:', response);
         res.status(200).json({ message: response });
     } catch (error) {

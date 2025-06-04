@@ -11,11 +11,10 @@ import { createElement } from "react"; //tutaj dodwac p w chato
 function Home() {
 
     const {user}= useUser();
-    console.log("user in home page", user);
 
     const [messages,setMessages] = useState([
-       {text: "Hello i am MathMentor how can i help u?", from: "bot"},
-       {text: "I can help you with math problems, explanations, and more!", from: "bot"},
+       {text: "Cześć jestem Math Mentor", from: "bot"},
+       {text: "Mogę pomóc w problemach matematycznych, wyjaśnieniach i nie tylko!", from: "bot"},
     ])
 
     const [message, setMessage] = useState({text: ""});
@@ -32,29 +31,33 @@ function Home() {
         console.log("wiadomosac", wiadomosac);
         setMessage({ text: "" });
         try {
-            const response = fetch("http://localhost:5001/api/app/chatbotMessage", {
+            const response = await fetch("http://localhost:5001/api/app/chatbotMessage", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ message: wiadomosac }),
-            })
+            });
             const data = await response.json();
+            console.log("Response from server:", data);
+            if (response.ok) {
+                setMessages(e => [...e, { text: data.message, from: "bot" }]);
+            }
+            else {
+                console.error("Error from server:", data.message);
+                setMessages(e => [...e, { text: "Error: " + data.message, from: "bot" }]);
+            }
         }
         catch (error) {
                 console.error("Error:", error);
             }
-        
-    }     
-        
-   
-   
 
+    }
 
-    return ( 
-        <div> 
+    return (
+        <div>
             <Header/>
-            <div className=" background-div "> 
+            <div className=" background-div ">
                 <div className="flex flex-col items-center justify-center h-screen px-4 gap-2">
                     <h1 className= "bg-gradient-to-r from-blue-500 to-green-500 text-5xl bg-clip-text font-extrabold text-transparent text-center">This is Home Page </h1> 
                     <div className="flex flex-row items-center justify-center h-screen px-4 gap-10"> 
