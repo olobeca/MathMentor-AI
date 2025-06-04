@@ -1,5 +1,5 @@
 const { OpenAI } = require("openai");
-const chunk = require('../models/chunk'); // Assuming you have a chunk model to interact with the database
+const chunk = require('../models/chunk'); 
 
 //test if this is required
 const dotenv = require('dotenv'); 
@@ -12,8 +12,30 @@ const openai = new OpenAI({
 
 async function getKnowledgeFromDatabase(message,embeddedText) {
     try { 
-        
-        
+        const chunks = await chunk.find({})
+        const agg = [{
+            '$vectorSearch': {
+                'index':'embedding_index',
+                'path': 'embedding',
+                'queryVector': embeddedText,
+                'numCandidates': 18,
+                'limit': 5
+            }
+
+        }, {
+            '$project': {
+                '_id': 0,
+                'plot': 1,
+                'title': 1,
+                'text': 1,
+                'score': {
+                    '$meta': 'vectorSearchScore'
+                },
+
+            }
+        }]
+        const results = await chunk.aggregate(agg); //chunks czy chunk
+        return results;
 
     } catch (error) {
         console.error("Error connecting to the database:", error);

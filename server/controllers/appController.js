@@ -98,6 +98,8 @@ exports.chatbotMessage = async (req, res) => {
             return res.status(400).json({ message: 'Invalid message format' });
         }
         const embeddedText = await embedingsService.generateEmbeddings(message); 
+        const responseFromDb = await chatbotService.getKnowledgeFromDatabase(message, embeddedText);
+        console.log('Knowledge from database:', responseFromDb);
         const response = await chatbotService.generateResponse(message);
         console.log('Chatbot response:', response);
         res.status(200).json({ message: response });
