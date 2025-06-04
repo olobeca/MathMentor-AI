@@ -1,7 +1,30 @@
 const { OpenAI } = require("openai");
+const chunk = require('../models/chunk'); // Assuming you have a chunk model to interact with the database
+
+//test if this is required
+const dotenv = require('dotenv'); 
+dotenv.config();
+
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 })
+
+
+async function getKnowledgeFromDatabase(message,embeddedText) {
+    try { 
+        
+        
+
+    } catch (error) {
+        console.error("Error connecting to the database:", error);
+        return "Nie mogę uzyskać dostępu do bazy danych.";
+    }
+
+
+
+    return "Placeholder knowledge from the database.";
+    }
+
 
 async function generateResponse(prompt) {
   const response = await openai.chat.completions.create({
@@ -13,6 +36,9 @@ async function generateResponse(prompt) {
   return response.choices[0].message.content;
 }
 
+
+
 module.exports = {
     generateResponse,
+    getKnowledgeFromDatabase
     };

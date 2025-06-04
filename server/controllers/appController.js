@@ -97,6 +97,7 @@ exports.chatbotMessage = async (req, res) => {
         if (!message || typeof message !== 'string') {
             return res.status(400).json({ message: 'Invalid message format' });
         }
+        const embeddedText = await embedingsService.generateEmbeddings(message); 
         const response = await chatbotService.generateResponse(message);
         console.log('Chatbot response:', response);
         res.status(200).json({ message: response });
