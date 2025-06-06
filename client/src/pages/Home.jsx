@@ -36,12 +36,13 @@ function Home() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ message: wiadomosac }),
+                body: JSON.stringify({ message: wiadomosac, user:user}),
             });
             const data = await response.json();
             console.log("Response from server:", data);
             if (response.ok) {
                 setMessages(e => [...e, { text: data.message, from: "bot" }]);
+
             }
             else {
                 console.error("Error from server:", data.message);

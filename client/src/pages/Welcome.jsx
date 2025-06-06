@@ -13,6 +13,7 @@ function Welcome() {
       email: "",
       password: "",
       isAdmin: false, 
+      id: "",
     });
 
   function handleEmailChange(e){
@@ -57,6 +58,7 @@ function Welcome() {
             email: "",
             password: "",
             isAdmin: false,
+            id: "",
         }); 
         
   }

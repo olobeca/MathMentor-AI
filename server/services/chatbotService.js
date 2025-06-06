@@ -1,5 +1,6 @@
 const { OpenAI } = require("openai");
 const chunk = require('../models/chunk'); 
+const message = require('../models/message'); 
 
 //test if this is required
 const dotenv = require('dotenv'); 
@@ -56,8 +57,19 @@ async function generateResponse(prompt) {
 }
 
 
+async function addedMessageToDatabase(message2, userId, isAI) {
+    const newMessage = new message({
+        content: message2,
+        user: userId,
+        isAI: isAI
+    });
+    await newMessage.save();
+    return newMessage;
+}
+
+
 
 module.exports = {
     generateResponse,
-    getKnowledgeFromDatabase
-    };
+    getKnowledgeFromDatabase,
+    addedMessageToDatabase};

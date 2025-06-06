@@ -34,6 +34,7 @@ exports.loginUser = async (req, res) => {
                                     email: loggedUser.email,
                                     password: loggedUser.password,
                                     isAdmin: loggedUser.isAdmin,
+                                    id: loggedUser._id
                                   }}
             );
         } else {

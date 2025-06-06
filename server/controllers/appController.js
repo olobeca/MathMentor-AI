@@ -93,6 +93,8 @@ exports.generatePDF = async (req, res) => {
 exports.chatbotMessage = async (req, res) => {
     try {
         const { message } = req.body;
+        const {user } = req.body;
+        chatbotService.addedMessageToDatabase(message,user.id, false);
         console.log('Received message:', message);
         if (!message || typeof message !== 'string') {
             return res.status(400).json({ message: 'Invalid message format' });
@@ -101,6 +103,7 @@ exports.chatbotMessage = async (req, res) => {
         const responseFromDb = await chatbotService.getKnowledgeFromDatabase(message, embeddedText);
         console.log('Knowledge from database:', responseFromDb);
         const response = await chatbotService.generateResponse(message);
+        chatbotService.addedMessageToDatabase(response,user.id, true);
         console.log('Chatbot response:', response);
         res.status(200).json({ message: response });
     } catch (error) {
