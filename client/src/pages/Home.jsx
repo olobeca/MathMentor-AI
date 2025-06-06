@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {useState} from "react"; 
 import '../App.css';
@@ -11,8 +11,28 @@ import { createElement } from "react"; //tutaj dodwac p w chato
 function Home() {
 
     const {user}= useUser();
+    //use effect daj taki efekt ze wiadomosci laduja sie raz - i ewentualnie pryz zmianie usera
+    useEffect(() => {
+    async function handleoldMessage() {
+        try {
+        const oldMessages = await fetch("http://localhost:5001/api/app/chatbotMessageHistory", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user: user }),
+        });
+        const oldMessagesData = await oldMessages.json();
+    } catch (error) {
+        console.error("Error accessing old messages:", error);
+    }
 
+    }
+    handleoldMessage();
+    }, [user]);
+    
     const [messages,setMessages] = useState([
+    
        {text: "Cześć jestem Math Mentor", from: "bot"},
        {text: "Mogę pomóc w problemach matematycznych, wyjaśnieniach i nie tylko!", from: "bot"},
     ])
@@ -22,6 +42,7 @@ function Home() {
     function handleMessageChange(e){
         setMessage({...message,text: e.target.value}); 
         } 
+    
     
 
    const chatbotMessageSend = async (e) => {

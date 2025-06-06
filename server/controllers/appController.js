@@ -111,3 +111,12 @@ exports.chatbotMessage = async (req, res) => {
         res.status(500).json({ message: 'Error processing chatbot message' });
     }
 }
+
+exports.chatbotMessageHistory = async (req, res) => {
+    try {
+        
+    } catch (error) {
+        console.error('Error in chatbotMessageHistory:', error);
+        res.status(500).json({ message: 'Error retrieving chatbot message history' });
+    }
+}
