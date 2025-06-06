@@ -42,9 +42,6 @@ async function getKnowledgeFromDatabase(message,embeddedText) {
         return "Nie mogę uzyskać dostępu do bazy danych.";
     }
 
-
-
-    return "Placeholder knowledge from the database.";
     }
 
 
