@@ -11,6 +11,7 @@ import AdminPannel from "./pages/AdminPannel";
 import Premium from "./pages/Premium";
 import About from "./pages/About";
 import Account from "./pages/Account";
+import Knowledge from './pages/Knowledge';
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
                 <Route path="/MadeAccount" element={<MadeAccount />} />
                 <Route path="/AdminPannel" element={<AdminPannel />} />
                 <Route path="/Premium" element={<Premium />} />
-                <Route path="/About" element={<About />} />
+                <Route path="/Knowledge" element={<Knowledge />} />
                 <Route path="/Account" element={<Account />} />
             </Routes>
         </div>
