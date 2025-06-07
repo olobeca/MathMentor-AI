@@ -11,6 +11,13 @@ import { createElement } from "react"; //tutaj dodwac p w chato
 function Home() {
 
     const {user}= useUser();
+
+    const [messages,setMessages] = useState([
+    
+       {text: "Cześć jestem Math Mentor", from: "bot"},
+       {text: "Mogę pomóc w problemach matematycznych, wyjaśnieniach i nie tylko!", from: "bot"},
+    ])
+
     //use effect daj taki efekt ze wiadomosci laduja sie raz - i ewentualnie pryz zmianie usera
     useEffect(() => {
     async function handleoldMessage() {
@@ -25,11 +32,8 @@ function Home() {
         const oldMessagesData = await oldMessages.json();
         console.log("Old messages:", oldMessagesData.messages);
 
-
-
-        
-        oldMessagesData.messages.forEach((messageText) => {
-            setMessages(e => [...e, { text: messageText, from: oldMessagesData.isAI ? "bot" : "user" }]);
+        oldMessagesData.messages.map((message) => {
+            setMessages(e => [...e, { text: message.content, from: message.isAI ? "bot" : "user" }]);
         });
     } catch (error) {
         console.error("Error accessing old messages:", error);
@@ -39,11 +43,7 @@ function Home() {
     handleoldMessage();
     }, [user]);
     
-    const [messages,setMessages] = useState([
     
-       {text: "Cześć jestem Math Mentor", from: "bot"},
-       {text: "Mogę pomóc w problemach matematycznych, wyjaśnieniach i nie tylko!", from: "bot"},
-    ])
 
     const [message, setMessage] = useState({text: ""});
 
