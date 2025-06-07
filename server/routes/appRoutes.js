@@ -18,5 +18,6 @@ const storage = multer.diskStorage({
 const upload = multer({storage:storage});
 router.post('/uploadPDF', upload.single('pdfFile'), appController.generatePDF);  
 router.post('/chatbotMessage', appController.chatbotMessage);
+router.post('/chatbotMessageHistory', appController.chatbotMessageHistory);
 
 module.exports = router;

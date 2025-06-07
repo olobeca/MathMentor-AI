@@ -4,6 +4,8 @@ const embedingsService = require('../services/embedingsService');
 const chatbotService = require('../services/chatbotService');
 
 const express = require('express'); 
+const message = require('../models/message');
+const user = require('../models/user');
 exports.generatePDF = async (req, res) => {
     try { 
         if(!req.file)
@@ -114,6 +116,9 @@ exports.chatbotMessage = async (req, res) => {
 
 exports.chatbotMessageHistory = async (req, res) => {
     try {
+        const { user } = req.body;
+        const messages2 = await chatbotService.getChatbotMessageHistory(user.id);
+        res.status(200).json({ messages: messages2 });
         
     } catch (error) {
         console.error('Error in chatbotMessageHistory:', error);

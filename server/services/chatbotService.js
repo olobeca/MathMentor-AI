@@ -67,9 +67,18 @@ async function addedMessageToDatabase(message2, userId, isAI) {
     return newMessage;
 }
 
-
+async function getChatbotMessageHistory(userId) {
+    try {
+        const messages = await message.find({ user: userId }).sort({ createdAt: -1 });
+        return messages;
+    } catch (error) {
+        console.error("Error fetching chatbot message history:", error);
+        throw new Error("Nie mogę uzyskać historii wiadomości.");
+    }
+}
 
 module.exports = {
     generateResponse,
     getKnowledgeFromDatabase,
-    addedMessageToDatabase};
+    addedMessageToDatabase,
+    getChatbotMessageHistory}

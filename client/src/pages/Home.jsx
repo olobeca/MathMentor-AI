@@ -23,6 +23,14 @@ function Home() {
             body: JSON.stringify({ user: user }),
         });
         const oldMessagesData = await oldMessages.json();
+        console.log("Old messages:", oldMessagesData.messages);
+
+
+
+        
+        oldMessagesData.messages.forEach((messageText) => {
+            setMessages(e => [...e, { text: messageText, from: oldMessagesData.isAI ? "bot" : "user" }]);
+        });
     } catch (error) {
         console.error("Error accessing old messages:", error);
     }
