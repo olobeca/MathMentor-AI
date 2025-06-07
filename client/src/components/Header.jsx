@@ -21,7 +21,7 @@ function Header() {
                 <nav className="space-x-4">
                     <Link className="header-link" to="/Account">Account</Link> 
                     {user.isAdmin ? <Link className= "header-link" to="/AdminPannel">Admin Pannel</Link> : null}
-                    <Link className="header-link" to="/About">About</Link> 
+                    <Link className="header-link" to="/Knowledge">Knowledge</Link> 
                 </nav>
             </div>
 

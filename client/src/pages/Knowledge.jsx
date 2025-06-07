@@ -1,22 +1,20 @@
 import React from "react";
+import Header from "../components/Header";
 
 
 function Knowledge() {
     return (
-        <>
-            <div className="background-div">
-                <div className="knowledge-frame-div">
-                    <h1 className="knowledge-h1">Knowledge Base</h1>
-                    <p className="knowledge-p">Here you can find information about how to use the Math Mentor AI, its features, and how to get the best results.</p>
-                    <ul className="knowledge-list">
-                        <li>Ask questions about math problems.</li>
-                        <li>Get explanations for complex concepts.</li>
-                        <li>Learn how to solve equations step by step.</li>
-                        <li>Explore various math topics and resources.</li>
-                    </ul>
-                </div>
+        <div> 
+            <Header/>
+            <div className=" background-div "> 
+                    <div className="welcome-pages-frame-div w-[820px] h-[620px] ">  
+                        <h1 className="welcome-h1">Knowledge Base</h1>
+                        <div className="w-full mb-5 flex items-center  gap-1">
+                            <p className="text-center text-lg">This is a knowledge base page where you can find information about the application, how to use it, and other relevant details.</p>
+                        </div>
+                    </div>
             </div>
-        </>
+        </div>
     );
 }
 export default Knowledge;
