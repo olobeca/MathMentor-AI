@@ -2,6 +2,12 @@ const { OpenAI } = require('openai');
 const openai = new OpenAI();
 const Chunk = require('../models/chunk');
 
+ 
+async function addingPdfToDatabase() {
+    
+}
+
+
 async function generateEmbeddings(text) {
     const embedding = await openai.embeddings.create({
         model: 'text-embedding-ada-002',
