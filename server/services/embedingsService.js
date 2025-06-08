@@ -1,10 +1,20 @@
 const { OpenAI } = require('openai');
 const openai = new OpenAI();
 const Chunk = require('../models/chunk');
+const Pdf = require('../models/pdf');
 
  
-async function addingPdfToDatabase() {
-    
+async function addingPdfToDatabase(pdfname, userId) {
+    const pdf = new Pdf({
+        filename: pdfname,
+        source: `uploads/${pdfname}.pdf`,
+        user: userId
+    });
+
+    await pdf.save();
+    console.log('PDF saved successfully:', pdf);
+    return pdf;
+
 }
 
 
@@ -34,5 +44,6 @@ async function saveChunk(text, embedding, sourceFile) {
 
 module.exports = {
     generateEmbeddings,
-    saveChunk
+    saveChunk,
+    addingPdfToDatabase
 };

@@ -1,13 +1,18 @@
-import React from "react"; 
+import React, { use } from "react"; 
 import { useUser } from '../context/UserContext';
 import Header from "../components/Header";
 import '../App.css';
 import { useState } from "react";
+import { useEffect } from "react";
 
 function AdminPannel() {   
 
     const {user}= useUser();
+
+    useEffect(() => {
     console.log("user in home page", user);
+    }, [user]);
+
     const [pdfFile, setPdfFile] = useState(null);
     const [pdfName, setPdfName] = useState(""); 
 
@@ -20,9 +25,14 @@ function AdminPannel() {
             alert("Please select a file");
             return;
         } 
+        if(pdfName.trim() === "") {
+            alert("Please enter a PDF name");
+            return;
+        }
+
         const formData = new FormData();
         formData.append("pdfFile", pdfFile); 
-        formData.append("user", user); 
+        formData.append("user", JSON.stringify(user)); 
         formData.append("pdfName", pdfName);
         try {
             const response = await fetch("http://localhost:5001/api/app/uploadPDF", {

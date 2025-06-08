@@ -6,17 +6,33 @@ const chatbotService = require('../services/chatbotService');
 const express = require('express'); 
 const message = require('../models/message');
 const user = require('../models/user');
+
+const fs = require('fs');
 exports.generatePDF = async (req, res) => {
     try { 
         if(!req.file)
-          {  return res.status(400).json({ message: 'No file uploaded' });}
-        
+          {  return res.status(400).json({ message: 'No file uploaded' });
+        }
+        const userObj = typeof req.body.user === 'string' ? JSON.parse(req.body.user) : req.body.user;
 
-        const pdfPath = path.join(__dirname, '..', 'uploads', req.file.filename);
-        console.log('Wywołuję skrypt Python z plikiem:', pdfPath);
-        const pythonProcess = spawn('python', [
+       // if (!req.body.pdfName || !userObj || !userObj.id) {
+       //     return res.status(400).json({ message: 'Missing required fields' });
+       // }
+
+        // Po uploadzie req.body.pdfName już jest dostępne!
+        const uploadsDir = path.join(__dirname, '..', 'uploads');
+        const oldPath = path.join(uploadsDir, req.file.filename);
+        const newFilename = req.body.pdfName + '.pdf';
+        const newPath = path.join(uploadsDir, newFilename);
+
+        fs.renameSync(oldPath, newPath);
+
+        embedingsService.addingPdfToDatabase(req.body.pdfName, userObj.id);
+
+        console.log('Wywołuję skrypt Python z plikiem:', newPath);
+        const pythonProcess = spawn('python3', [
             path.join(__dirname, '..', 'PdfTextConverter.py'),
-            pdfPath
+            newPath
         ],{env: { PYTHONIOENCODING: 'utf-8'}});
 
         let output = '';
@@ -39,7 +55,7 @@ exports.generatePDF = async (req, res) => {
 
             //console.log('Python script output:', output);
 
-            const pythonProcess2 = spawn('python', [
+            const pythonProcess2 = spawn('python3', [ //change to python if you are on windows
             path.join(__dirname, '..', 'TextToChunk.py'),
             output
             ], { env: {...process.env, PYTHONIOENCODING: 'utf-8'}});
