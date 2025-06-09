@@ -32,11 +32,13 @@ async function getKnowledgeFromDatabase(message,embeddedText) {
                 'score': {
                     '$meta': 'vectorSearchScore'
                 },
+                'sourceFile': 1
 
             }
         }]
         const results = await chunk.aggregate(agg); //chunks czy chunk
-        return results;
+        const pdfSource = results.length > 0 ? results[0].sourceFile : null;
+        return {results, pdfSource};
 
     } catch (error) {
         console.error("Error connecting to the database:", error);
@@ -46,12 +48,14 @@ async function getKnowledgeFromDatabase(message,embeddedText) {
     }
 
 
-async function generateResponse(prompt) {
+async function generateResponse(prompt, context, pdfSource) {
   const response = await openai.chat.completions.create({
     model: "gpt-4",
     messages: [
-        {role:"system", content:"Jesteś nauczycielem z matematyki dla uczniów szkół średnich. Twoim zadaniem jest odpowiadać na pytania dotyczące matematyki,głównie będziesz skupiał się na zadaniach z matury rozszerzonej, razem z zapytaniem dostaniesz wiedze z bazy danych, jak nie wiesz jak odpowiedzieć to napisz, że nie wiesz, ale postaraj się odpowiedzieć najlepiej jak potrafisz."},
-        { role: "user", content: prompt }],
+        {role:"system", content:"Jesteś nauczycielem z matematyki dla uczniów szkół średnich. Twoim zadaniem jest odpowiadać na pytania dotyczące matematyki,głównie będziesz skupiał się na zadaniach z matury rozszerzonej, razem z zapytaniem dostaniesz wiedze z bazy danych, jak nie wiesz jak odpowiedzieć to napisz, że nie wiesz, ale postaraj się odpowiedzieć najlepiej jak potrafisz.Pamietaj ze masz zawsze podawać źródło informacji - nazwa pdfa z którego korzystasz."},
+        { role: "user", content: prompt },
+        {role: "user", content: context},
+        {role: "user", content: `Źródło informacji: ${pdfSource ? pdfSource : "brak"}`}]
   });
   return response.choices[0].message.content;
 }

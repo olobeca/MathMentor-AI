@@ -88,7 +88,7 @@ exports.generatePDF = async (req, res) => {
                         console.log('chunk processes succesfully')
                         console.log('Embedding z chunku:', embedding);
                         embeddings.push(embedding);
-                        await embedingsService.saveChunk(chunk, embedding, req.file.filename);
+                        await embedingsService.saveChunk(chunk, embedding, newFilename);
                      } catch (error) {
                         console.error('Error generating embeddings:', error);
                      } 
@@ -119,8 +119,8 @@ exports.chatbotMessage = async (req, res) => {
         }
         const embeddedText = await embedingsService.generateEmbeddings(message); 
         const responseFromDb = await chatbotService.getKnowledgeFromDatabase(message, embeddedText);
-        console.log('Knowledge from database:', responseFromDb);
-        const response = await chatbotService.generateResponse(message);
+        console.log('Knowledge from database:', responseFromDb.results+ 'zrodlo informacji' + responseFromDb.pdfSource);
+        const response = await chatbotService.generateResponse( message, JSON.stringify(responseFromDb.results), JSON.stringify(responseFromDb.pdfSource));
         chatbotService.addedMessageToDatabase(response,user.id, true);
         console.log('Chatbot response:', response);
         res.status(200).json({ message: response });
