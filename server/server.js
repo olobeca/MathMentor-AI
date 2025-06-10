@@ -13,7 +13,7 @@ app.use(cors(corsOptions));
 app.options('/api/*', cors(corsOptions));
 app.use(express.json()); 
 app.use(logger);
-
+app.use('/uploads', express.static('uploads')); // Serwowanie plików z katalogu uploads
 
 try {
     mongoose.connect(process.env.MONGO_URI)
