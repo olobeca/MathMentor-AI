@@ -29,13 +29,16 @@ exports.loginUser = async (req, res) => {
         const { email, password } = req.body;
         const loggedUser = await userService.loginUser(email, password);
         if (loggedUser) {
+            const jwt = require('jsonwebtoken');
+            const token = jwt.sign({ id: loggedUser._id, email: loggedUser.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.status(200).json({ message: 'Login successful',
                                   user: {
                                     email: loggedUser.email,
                                     password: loggedUser.password,
                                     isAdmin: loggedUser.isAdmin,
                                     id: loggedUser._id
-                                  }}
+                                  },
+                                  token: token}
             );
         } else {
             res.status(200).json({ message: 'Invalid email or password' });
