@@ -120,8 +120,13 @@ exports.chatbotMessage = async (req, res) => {
         }
         const embeddedText = await embedingsService.generateEmbeddings(message); 
         const responseFromDb = await chatbotService.getKnowledgeFromDatabase(message, embeddedText);
-        console.log('Knowledge from database:', responseFromDb.results+ 'zrodlo informacji' + responseFromDb.pdfSource);
-        const response = await chatbotService.generateResponse( message, JSON.stringify(responseFromDb.results), JSON.stringify(responseFromDb.pdfSource));
+        
+        const contextText = responseFromDb.results
+            .map(obj => obj.text || obj.plot || obj.title || JSON.stringify(obj))
+            .join('\n---\n');
+
+        console.log('Knowledge from database:', contextText + 'zrodlo informacji' + responseFromDb.pdfSource);
+        const response = await chatbotService.generateResponse( message, contextText, responseFromDb.pdfSource);
         chatbotService.addedMessageToDatabase(response,user.id, true);
         console.log('Chatbot response:', response);
         res.status(200).json({ message: response });

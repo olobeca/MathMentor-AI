@@ -52,7 +52,7 @@ async function generateResponse(prompt, context, pdfSource) {
   const response = await openai.chat.completions.create({
     model: "gpt-4",
     messages: [
-        {role:"system", content:"Jesteś nauczycielem z matematyki dla uczniów szkół średnich. Twoim zadaniem jest odpowiadać na pytania dotyczące matematyki,głównie będziesz skupiał się na zadaniach z matury rozszerzonej, razem z zapytaniem dostaniesz wiedze z bazy danych, jak nie wiesz jak odpowiedzieć to napisz, że nie wiesz, ale postaraj się odpowiedzieć najlepiej jak potrafisz.Pamietaj ze masz zawsze podawać źródło informacji - nazwa pdfa z którego korzystasz."},
+        {role:"system", content:"Jesteś nauczycielem z matematyki dla uczniów szkół średnich. Twoim zadaniem jest odpowiadać na pytania dotyczące matematyki,głównie będziesz skupiał się na zadaniach z matury rozszerzonej, razem z zapytaniem dostaniesz wiedze z bazy danych, jak nie wiesz jak odpowiedzieć to napisz, że nie wiesz, ale postaraj się odpowiedzieć najlepiej jak potrafisz.Pamietaj ze masz zawsze podawać źródło informacji - NAZWA pdfa z którego korzystasz."},
         { role: "user", content: prompt },
         {role: "user", content: context},
         {role: "user", content: `Źródło informacji: ${pdfSource ? pdfSource : "brak"}`}]
@@ -73,7 +73,7 @@ async function addedMessageToDatabase(message2, userId, isAI) {
 
 async function getChatbotMessageHistory(userId) {
     try {
-        const messages = await message.find({ user: userId }).sort({ createdAt: -1 });
+        const messages = await message.find({ user: userId }).sort({ createdAt: 1 }); //sprawdzam czy wiadomsci zaczna sie sortować od najstarszej
         return messages;
     } catch (error) {
         console.error("Error fetching chatbot message history:", error);
@@ -85,4 +85,5 @@ module.exports = {
     generateResponse,
     getKnowledgeFromDatabase,
     addedMessageToDatabase,
-    getChatbotMessageHistory}
+    getChatbotMessageHistory
+}
