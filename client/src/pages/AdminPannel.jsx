@@ -8,6 +8,7 @@ import { useEffect } from "react";
 function AdminPannel() {   
 
     const {user}= useUser();
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
     console.log("user in home page", user);
@@ -37,10 +38,12 @@ function AdminPannel() {
         try {
             const response = await fetch("http://localhost:5001/api/app/uploadPDF", {
                 method: "POST",
-                body: formData, 
-
+                body: formData,
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             })
-            const data = await response.json(); 
+            const data = await response.json();
             console.log("Success:", data);
             if (data.message === 'PDF uploaded successfully') {
                 alert("PDF uploaded successfully");

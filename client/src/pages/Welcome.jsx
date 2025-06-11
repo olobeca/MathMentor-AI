@@ -42,10 +42,11 @@ function Welcome() {
                 //debug
                 console.log (user.email);
                 console.log(user.password);
-                // addec to local storage
+                // added to local storage
                 localStorage.setItem('user',JSON.stringify(data.user)); 
+                localStorage.setItem('token', data.token);
 
-                setContextUser(data.user);
+                setContextUser({...data.user, token: data.token});
                 window.location.href = "http://localhost:3000/Home"; 
             } else {
                 setisPasswordOK(false);

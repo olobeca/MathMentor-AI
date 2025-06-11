@@ -11,6 +11,7 @@ import { createElement } from "react"; //tutaj dodwac p w chato
 function Home() {
 
     const {user}= useUser();
+    const token = localStorage.getItem('token');
 
     const [messages,setMessages] = useState([
     
@@ -26,6 +27,7 @@ function Home() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({ user: user }),
         });
@@ -64,6 +66,7 @@ function Home() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify({ message: wiadomosac, user:user}),
             });

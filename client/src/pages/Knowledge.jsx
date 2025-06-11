@@ -3,10 +3,16 @@ import Header from "../components/Header";
 import { useState , useEffect} from "react";
 import { Document, Page, } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
+import { useUser } from '../context/UserContext';
+
 
 
 pdfjs.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.worker.min.js";
 function Knowledge() {
+
+    const {user}= useUser();
+    const token = localStorage.getItem('token');
+
 
     const [pdfList, setPdfList] = useState([]);
     const [selectedPdf, setSelectedPdf] = useState(null);
@@ -17,7 +23,8 @@ function Knowledge() {
         fetch("http://localhost:5001/api/app/getPDFList", {
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             }
         })
         .then(response => response.json())
