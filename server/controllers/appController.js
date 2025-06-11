@@ -146,12 +146,11 @@ exports.chatbotMessageHistory = async (req, res) => {
 exports.getPDFList = async (req, res) => {
 
     try { 
-        const pdfs = await pdf.find({}, 'filename'); // Pobiera tylko pole pdfName
+        const pdfs = await pdf.find({}); // Pobiera tylko pole pdfName
         if (!pdfs || pdfs.length === 0) {
             return res.status(404).json({ message: 'No PDFs found' });
         }
-        const pdfList = pdfs.map(pdf => pdf.filename);
-        res.status(200).json({ pdfList });
+        res.status(200).json({ pdfs });
 
     }  catch (error) {
         console.error('Error retrieving PDF list:', error);

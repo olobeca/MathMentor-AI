@@ -44,13 +44,13 @@ function Knowledge() {
                     <div className="w-full mb-5 flex flex-col items-center  gap-1">
                         <p className="text-center text-lg">This is a knowledge base page where you can find information about the application, how to use it, and other relevant details.</p>
                         {pdfList.map((pdf, index) => (
-                              <button key={index} className="text-center text-lg underline" onClick={() => setSelectedPdf(pdf)}>{pdf}</button>
+                              <button key={pdf._id || index} className="text-center text-lg underline" onClick={() => setSelectedPdf(pdf)}>{pdf.filename}</button>
                         ))}
                     </div>
                     {selectedPdf && (
                         <div style={{ width: "600px", margin: "0 auto" }}>
                             <Document
-                                file={`http://localhost:5001/uploads/${selectedPdf}.pdf`}
+                                file={`http://localhost:5001/uploads/${selectedPdf.filename}.pdf`}
                                 onLoadSuccess={({ numPages }) => setNumPages(numPages)}
                                 onLoadError={console.error}
                             >
