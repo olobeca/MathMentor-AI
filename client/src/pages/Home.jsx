@@ -92,7 +92,7 @@ function Home() {
             <Header/>
             <div className=" background-div ">
                 <div className="flex flex-col items-center justify-center h-screen px-4 gap-2">
-                    <h1 className= "bg-gradient-to-r from-blue-500 to-green-500 text-5xl bg-clip-text font-extrabold text-transparent text-center">This is Home Page </h1> 
+                   {/* <h1 className= "bg-gradient-to-r from-blue-500 to-green-500 text-5xl bg-clip-text font-extrabold text-transparent text-center">This is Home Page </h1> */}
                     <div className="flex flex-row items-center justify-center h-screen px-4 gap-10"> 
                         <div className="flex gap-y-2 flex-col overflow-y-auto  justify-center items-center border-none py-4 px-8 rounded-lg shadow-lg  bg-white w-[600px] h-[600px] justify-between">  
                             {messages.map((message1, index) => (
