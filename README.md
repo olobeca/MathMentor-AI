@@ -31,3 +31,7 @@ It allows users to upload PDF files, ask math questions, and receive AI-powered 
 ## License
 
 MIT
+
+## Author 
+
+Alekander Radecki
