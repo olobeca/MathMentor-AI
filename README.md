@@ -23,7 +23,7 @@ It allows users to upload PDF files, ask math questions, and receive AI-powered 
 2. Install dependencies in both `client` and `server` folders.
 3. Set up your `.env` files (see `.env.example`).
 4. Run the backend:  
-   `cd server && npm start`
+   `cd server && npm run dev`
 5. Run the frontend:  
    `cd client && npm start`
 6. Open [http://localhost:3000](http://localhost:3000) in your browser.
